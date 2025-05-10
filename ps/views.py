@@ -262,7 +262,7 @@ class SessionListView(APIView):
     
     @swagger_auto_schema(
         request_body=SessionCreateSerializer,
-        operation_description="Démarre une nouvelle session en assignant un joueur à une station",
+            operation_description="Démarre une nouvelle session en assignant un joueur à une station, avec une durée optionnelle en minutes",
         responses={
             201: SessionSerializer,
             400: "Données invalides",
