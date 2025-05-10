@@ -92,6 +92,12 @@ class SessionSerializer(serializers.ModelSerializer):
 class SessionCreateSerializer(serializers.Serializer):
     player_id = serializers.UUIDField()
     station_id = serializers.UUIDField()
+    duration = serializers.IntegerField(required=False, help_text=_("Durée optionnelle de la session en minutes"))
+    
+    def validate_duration(self, value):
+        if value and value <= 0:
+            raise serializers.ValidationError(_("La durée doit être un nombre positif"))
+        return value
     
     def validate(self, data):
         player_id = data.get('player_id')
@@ -124,12 +130,32 @@ class SessionCreateSerializer(serializers.Serializer):
     def create(self, validated_data):
         player = validated_data.pop('player')
         station = validated_data.pop('station')
+        duration = validated_data.pop('duration', None)
         
         # Créer la session
         session = Session.objects.create(
             player=player,
             station=station
         )
+        
+        # Si une durée est spécifiée, calculer la date de fin et le coût
+        if duration:
+            from django.utils import timezone
+            import datetime
+            
+            # Calculer la date de fin en ajoutant la durée à la date de début
+            end_time = session.start_time + datetime.timedelta(minutes=duration)
+            
+            # Mettre à jour la session avec la durée et la date de fin
+            session.duration = duration
+            session.end_time = end_time
+            
+            # Calculer le coût en fonction de la durée
+            hourly_rate = RateSettings.get_rate_for_station(station.type)
+            session.cost = round(float(hourly_rate) * (duration / 60), 2)
+            
+            # La session reste active même si une durée est définie
+            session.save()
         
         # Mettre à jour le statut de la station
         station.status = 'in_use'
