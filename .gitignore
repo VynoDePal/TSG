@@ -92,5 +92,5 @@ tmp/
 .DS_Store
 Thumbs.db
 
-ps/migrations/*
+ps/migrations/0001_initial.py
 templates
