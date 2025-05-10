@@ -37,6 +37,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=150, unique=True)
+    firstname = models.CharField(max_length=100, blank=True)
+    lastname = models.CharField(max_length=100, blank=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='player')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -52,6 +54,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _('utilisateurs')
     
     def __str__(self):
+        if self.firstname and self.lastname:
+            return f"{self.firstname} {self.lastname} ({self.username})"
         return self.username
 
 
