@@ -1,0 +1,96 @@
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Environnements virtuels
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Fichiers spécifiques à Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+media
+static/
+staticfiles/
+local_settings.py
+
+# Migrations Django (optionnel, selon la politique du projet)
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# Fichiers de configuration IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Fichiers de couverture et tests
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Fichiers de documentation
+docs/_build/
+site/
+
+# Bases de données
+*.sqlite3
+*.sqlite3-journal
+*.db
+
+# Fichiers d'environnement et de configuration
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Fichiers de journalisation
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Fichiers temporaires
+tmp/
+.DS_Store
+Thumbs.db
+
+ps/migrations/*
+templates
